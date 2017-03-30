@@ -9,8 +9,8 @@ public class Goat extends Entity{
     String color_mode="normal";
     int can_jump_flag=0;
     
-	public Goat(BufferedImage inputimg, int x_i, int y_i, int x_vi, int y_vi, int x_max, int y_max) {
-		super(inputimg, x_i, y_i, x_vi, y_vi, x_max, y_max);
+	public Goat(BufferedImage inputimg,Frame frame, int x_i, int y_i, int x_vi, int y_vi, int x_max, int y_max) {
+		super(inputimg,frame, x_i, y_i, x_vi, y_vi, x_max, y_max);
 		// TODO Auto-generated constructor stub
 		accel[1]=1;
 	}
@@ -99,13 +99,14 @@ public class Goat extends Entity{
 		}
 		else
 		{
+			
         for(int i=0; i<2; i++){
         	if(pos[i]>max[i])
         	{
         		pos[i]=max[i];
         		vel[i]=0;
         	}
-        	if(pos[i]<min[i])
+        	if(i==0&&pos[i]<min[i])
         	{
         		pos[i]=min[i];
         		vel[i]=0;

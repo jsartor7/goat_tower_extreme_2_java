@@ -23,10 +23,17 @@ public class DrawFrame extends Component {
 	static Graphics g;
     Graphics2D g2d;
     RescaleOp dirtrop;
-    		
+    double frame_vel;
+    int frame_pos;
+    Frame frame;
+    
     public DrawFrame() {
     	dirtimg=fu.LoadImg("dirt.jpg");	
-    	g=dirtimg.createGraphics();   	
+    	g=dirtimg.createGraphics();   	    	
+    	frame_vel=-0.5;
+    	frame_pos=0;
+    	frame= new Frame(dirtimg,null,0,frame_pos,0d,frame_vel,0,0);
+
     }
 
     public Dimension getPreferredSize() {
@@ -51,7 +58,7 @@ public class DrawFrame extends Component {
         for(int i=0;i<list.length;i++)
         {
         	cur=list[i];
-        	g2d.drawImage(cur.img, cur.rop, cur.get_pos(1,0), cur.get_pos(1,1));
+        	g2d.drawImage(cur.img, cur.rop, cur.get_pos(1,0), cur.get_pos(1,1)-frame.get_pos(0, 1));
         }
         
     }

@@ -8,7 +8,7 @@ import java.awt.image.RescaleOp;
 public class Entity {
 	int max_vel=5;
 	double accel_const=1;
-	
+	Frame frame;
 	//0 for pass through
 	//1 for interact
 	//2 for hard wall
@@ -32,24 +32,24 @@ public class Entity {
     RescaleOp rop;// = new RescaleOp(scales, offsets, null);
 
     
-    public Entity(BufferedImage inputimg, int x_i, int y_i, int x_vi, int y_vi, int x_max, int y_max)
+    public Entity(BufferedImage inputimg,Frame inputframe, int x_i, int y_i, double x_vi, double y_vi, int x_max, int y_max)
     {
-    	//0 for goat, 1 for grass
     	img=inputimg;
     	size[0]=img.getWidth();
     	size[1]=img.getHeight();
-
+    	frame=inputframe;
     	//this has to happen before assigning random positions
     	set_minmax(0,x_max,(int) size[0]);
     	set_minmax(1,y_max,(int) size[1]);
     	
     	//position<0 is a flag to randomize the position in that component
-    	pos[0]=x_i-size[0]/2;
-    	pos[1]=y_i-size[1]/2;
+    	pos[0]=x_i;
+    	pos[1]=y_i;
     	for(int i=0;i<2;i++)
     	{
-    		if(pos[i]<0)
-    			random_pos(i);
+    		//we can be wherever we want now
+    		//if(pos[i]<0)=
+    		//random_pos(i);
     	}
     	vel[0]=x_vi;
     	vel[1]=y_vi;
@@ -94,8 +94,10 @@ public class Entity {
     	for(int i=0;i<2;i++)
     	{
     		if(dir<0||dir==i)
-    		pos[i]=Math.random()*max[i];
+    			pos[i]=Math.random()*max[i];
     	}
+    	//this should throw an error if you try and call it for frame
+    		pos[1]+=frame.get_pos(0,1);
     }
 
     public void respawn()

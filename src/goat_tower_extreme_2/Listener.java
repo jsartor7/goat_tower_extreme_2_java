@@ -15,6 +15,7 @@ public class Listener extends JPanel implements KeyListener {
     //really we just need goat right now tho
     public EntityList list;
     public Goat goat;
+    public static boolean reset_flag=false;
     
     public Listener(EntityList in_list) {
         addKeyListener(this);
@@ -32,19 +33,28 @@ public class Listener extends JPanel implements KeyListener {
         switch (keyCode) {
         case KeyEvent.VK_LEFT:
             goat.accel(0,-1);
+        case KeyEvent.VK_A:
+            goat.accel(0,-1);
             break;
         case KeyEvent.VK_RIGHT:
+            goat.accel(0,1);
+        case KeyEvent.VK_D:
             goat.accel(0,1);
             break;
     	case KeyEvent.VK_UP:
     		goat.jump();
+    	case KeyEvent.VK_W:
+    		goat.jump();
     		//goat.accel(1,-1);
-    		break;
-    	case KeyEvent.VK_DOWN:
-    		//goat.accel(1,1);
     		break;
     	case KeyEvent.VK_SPACE:
     		goat.stop();
+    		break;
+    	case KeyEvent.VK_R:
+    		reset_flag=true;
+    		break;
+    	case KeyEvent.VK_DOWN:
+    		goat.vel[1]=-10;
     		break;
     }
 
@@ -56,14 +66,17 @@ public class Listener extends JPanel implements KeyListener {
         case KeyEvent.VK_LEFT:
             goat.accel(0,0);
             break;
+        case KeyEvent.VK_A:
+            goat.accel(0,0);
+            break;
         case KeyEvent.VK_RIGHT:
             goat.accel(0,0);
             break;
+        case KeyEvent.VK_D:
+            goat.accel(0,0);
+            break;
     	case KeyEvent.VK_UP:
-    		goat.jump();
-    		//goat.accel(1,0);
-    		break;
-    	case KeyEvent.VK_DOWN:
+    		//goat.jump();
     		//goat.accel(1,0);
     		break;
     }

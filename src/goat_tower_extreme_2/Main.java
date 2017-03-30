@@ -1,5 +1,13 @@
 package goat_tower_extreme_2;
 
+//some plans
+//you are a mountain goat trying to climb to the top
+//1. dirt 2. gravel 3. mountain 4. tower
+//
+//TODO
+//scrolling 
+//eating grass gives you energy?
+
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,6 +33,7 @@ import javax.swing.JPanel;
 public class Main extends JApplet  {
 
 	static FileUtil fu=new FileUtil();
+	//i guess i should probably rename this guy
     static JFrame frame = new JFrame("Goat Tower Extreme 2");
 	static DrawFrame dframe;
 	static EntityList master_list;
@@ -36,6 +45,8 @@ public class Main extends JApplet  {
 	        frame.setVisible(true);
 	        dframe = new DrawFrame();
 	        master_list=new EntityList(dframe);
+	        if(listen!=null)
+	        	frame.remove(listen);
 	        listen= new Listener(master_list);
 	        frame.add("Center",listen);
 	        listen.add(dframe);
@@ -58,7 +69,7 @@ public class Main extends JApplet  {
 	static private void main_loop()
 	{
 		long last_time=System.currentTimeMillis();
-		while(true)
+		while(!listen.reset_flag)
 		{
 			long time=System.currentTimeMillis();
 			double frac=((double) time%1000);
@@ -69,9 +80,18 @@ public class Main extends JApplet  {
 				last_time=time;
 				master_list.update_entities(elapse);        
 				draw();
-
+				if(1500<(master_list.goat.get_pos(0,1)-master_list.frame.get_pos(0, 1)))
+					listen.reset_flag=true;
 			}
 		}
+		reset();
+	}
+	
+	public static void reset()
+	{
+		listen.reset_flag=false;
+		init_game();
+		main_loop();
 	}
 	
 	//main is for applications
