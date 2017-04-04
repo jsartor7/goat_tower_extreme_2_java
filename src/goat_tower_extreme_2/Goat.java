@@ -17,8 +17,6 @@ public class Goat extends Entity{
 
     public void check_collision(Entity ent)
     {
-    	//if the flag is 1 we stop the goat if it's colliding
-    	//if the flag is 0 we just want to check if we're standing
     	
     	int sum=0;
     	double dif[]={0, 0};
@@ -99,7 +97,7 @@ public class Goat extends Entity{
 		}
 		else
 		{
-			
+			//don't need to be doing this every time...
         for(int i=0; i<2; i++){
         	if(pos[i]>max[i])
         	{
